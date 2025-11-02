@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Royal Invitation | The Gir Travel Company — Plan Your Journey</title>
+  <meta name="description" content="Share your dates and preferences for a tailor-made journey across Diu, Gir, Junagadh, Velavadar and Kutch. Licensed, GST-compliant, ethical wildlife practices, and 24×7 concierge." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ======= Tokens (final design) ======= */
+    :root{
+      --maroon:#6E0C2E; --maroon-700:#4C081F; --maroon-900:#2A0512;
+      --gold:#D4AF37; --gold-700:#B48E1A; --ivory:#FAF7F2; --ink:#121212; --muted:#6B7280;
+      --ring:0 0 0 3px rgba(212,175,55,.25);
+      --shadow:0 24px 60px rgba(0,0,0,.18);
+      --nav-h:72px; --safe-top:env(safe-area-inset-top,0px);
+      --max:1200px; --radius:22px;
+    }
+    @media (min-width:1024px){ :root{ --nav-h:92px; } }
+
+    /* ======= Base ======= */
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--ivory);color:var(--ink);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:var(--max);margin:auto;padding:0 18px}
+    .section{padding:88px 0}
+    .title{font-family:"Cormorant Garamond",serif;color:var(--maroon-900);font-size:clamp(30px,6vw,46px);margin:0 0 10px;text-align:center;text-wrap:balance}
+    .sub{color:var(--muted);text-align:center;margin:0 0 30px}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:260px;margin:44px auto}
+
+    /* ======= Buttons ======= */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:999px;border:1px solid transparent;padding:1rem 1.35rem;font-weight:800;line-height:1;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, background .18s ease;min-height:48px}
+    .btn:focus-visible{outline:none;box-shadow:var(--ring)}
+    .btn--royal{background:linear-gradient(135deg,var(--gold),#ffe7a4);color:#2B1A07;box-shadow:0 14px 34px rgba(212,175,55,.45), inset 0 -3px 0 rgba(0,0,0,.18)}
+    .btn--royal:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(212,175,55,.6), inset 0 -3px 0 rgba(0,0,0,.22)}
+    .btn--ghost{background:#fff;border:1px solid #e5e7eb;color:#111}
+
+    /* ======= Header (finalized) ======= */
+    .nav{position:fixed;left:0;right:0;top:0;height:var(--nav-h);z-index:1000;display:flex;align-items:center;background:rgba(42,5,18,.55);backdrop-filter:saturate(140%) blur(6px);transition:background .3s, box-shadow .3s}
+    .nav.scrolled{background:rgba(42,5,18,.95);box-shadow:0 12px 28px rgba(0,0,0,.28)}
+    .nav .inner{max-width:var(--max);margin:auto;padding:0 18px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand img{height:36px}
+    @media(min-width:1024px){ .brand img{height:44px} }
+    .right{display:flex;align-items:center;gap:18px;margin-left:auto}
+    .menu{display:none;gap:22px;align-items:center}
+    .menu a{color:#fff;font-weight:600;position:relative;padding:8px 0}
+    .menu a:after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+    .menu a:hover:after,.menu a[aria-current="page"]:after{transform:scaleX(1)}
+    .actions{display:none}
+    .actions .cta{padding:.65rem 1rem;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:800}
+    .hamburger{display:flex;width:44px;height:44px;border:1px solid rgba(255,255,255,.45);border-radius:12px;background:rgba(46,5,16,.85);color:#fff;align-items:center;justify-content:center}
+    .hamburger svg{width:22px;height:22px}
+    @media(min-width:1024px){ .menu{display:flex} .actions{display:block} .hamburger{display:none} }
+
+    /* Mobile panel */
+    body.nav-open{overflow:hidden}
+    .mobile-panel{position:fixed;inset:0;z-index:9999;background:#6e0c2e!important;transform:translateX(-100%);transition:transform .3s ease;padding:60px 24px;display:flex;flex-direction:column}
+    body.nav-open .mobile-panel{transform:translateX(0)}
+    .mobile-panel .close-menu{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:10px;width:40px;height:40px;display:grid;place-items:center;font-size:22px;cursor:pointer}
+    .mobile-panel a{display:block;color:#fff;font-size:1.15rem;font-weight:600;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+    .mobile-panel .cta{margin-top:30px;text-align:center;border:0;border-radius:999px;padding:14px;font-weight:800;background:#fff;color:#2A0E12;font-size:1.05rem}
+
+    /* ======= Hero (split) ======= */
+    header.hero{position:relative;padding-top:calc(var(--nav-h) + var(--safe-top));background:radial-gradient(1200px 600px at 10% -10%, rgba(212,175,55,.22), transparent 60%), linear-gradient(180deg, rgba(42,5,18,.92), rgba(42,5,18,.82));color:#fff}
+    .hero-wrap{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:center;padding:28px 18px 22px}
+    .hero-copy{padding:8px}
+    .kicker{letter-spacing:.18em;text-transform:uppercase;color:#f3ead3}
+    .hero-title{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,6.8vw,78px);line-height:1.06;margin:.35rem 0}
+    .hero-lead{font-size:clamp(15px,3.6vw,20px);color:#f7f2e6;opacity:.96;max-width:58ch}
+    .hero-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .hero-cta .btn{flex:1 1 220px}
+    .hero-media{border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);border:1px solid rgba(212,175,55,.22)}
+    .hero-media img{width:100%;height:100%;object-fit:cover}
+    @media (max-width:900px){ .hero-wrap{grid-template-columns:1fr} .hero-media{order:-1} }
+
+    /* ======= Assurance band ======= */
+    .assure-band{display:grid;gap:12px;background:#fff;border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.1);padding:14px;border:1px solid rgba(212,175,55,.25);grid-template-columns:1fr}
+    @media(min-width:380px){ .assure-band{grid-template-columns:repeat(2,1fr);} }
+    @media(min-width:1024px){ .assure-band{grid-template-columns:repeat(4,1fr);gap:0;padding:0;border-radius:22px} }
+    .tile{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid rgba(212,175,55,.18);border-radius:14px;padding:12px}
+    @media(min-width:1024px){ .tile{border:0;border-right:1px solid rgba(212,175,55,.35);border-radius:0;justify-content:center;padding:18px} .tile:last-child{border-right:0} }
+    .crest-mini{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffe9a6,var(--gold));color:#2b1a07;font-weight:900;flex:0 0 auto}
+    .tile .value{font-weight:900;color:var(--maroon-900);line-height:1}
+    .tile .note{font-size:.9rem;color:#6b7280;margin-top:2px;line-height:1.2}
+
+    /* ======= Invitation block ======= */
+    .invite{background:linear-gradient(135deg,var(--maroon-900),var(--maroon));color:#fff;border-radius:24px;box-shadow:0 28px 70px rgba(42,5,18,.4);border:1px solid rgba(212,175,55,.22);overflow:hidden}
+    .invite .head{padding:26px 20px;border-bottom:1px solid rgba(212,175,55,.22);display:flex;gap:16px;align-items:center;background:radial-gradient(900px 420px at 10% -10%, rgba(212,175,55,.2), transparent 60%);flex-wrap:wrap}
+    .crest{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),#ffe3a1);color:#2b1a07}
+    .invite h3{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5.6vw,40px);margin:0}
+    .invite .subt{opacity:.96;margin-top:4px}
+    .inv-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;padding:16px}
+    @media (max-width:900px){ .inv-grid{grid-template-columns:1fr;padding:12px} }
+
+    .inv-card{background:#fff;color:#111;border-radius:18px;border:1px solid #e7e2d7;box-shadow:var(--shadow);overflow:hidden}
+    .inv-card .pad{padding:18px}
+
+    /* Form */
+    .form {display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:18px;}
+    .field {position:relative;display:flex;flex-direction:column;}
+    .field select, .field input, .field textarea {font:inherit;border:1px solid #e5e7eb;border-radius:12px;padding:14px;transition:border .2s, box-shadow .2s;width:100%;}
+    .field textarea {min-height:120px;resize:vertical;}
+    .label {position:absolute;left:14px;top:12px;color:#6b7280;background:#fff;padding:0 6px;transition:transform .15s ease, color .15s ease, top .15s ease;pointer-events:none;}
+    .field input:focus, .field select:focus, .field textarea:focus {outline:none;border-color:#d4af37;box-shadow:0 0 0 3px rgba(212,175,55,.25);}
+    .field input:focus + .label,
+    .field input:not(:placeholder-shown) + .label,
+    .field select:focus + .label,
+    .field textarea:focus + .label,
+    .field textarea:not(:placeholder-shown) + .label {transform:translateY(-12px) scale(.92);top:-2px;color:#7a5b12;}
+    .error {font-size:.85rem;color:#991b1b;margin-top:6px;display:none;}
+    .invalid input,.invalid select,.invalid textarea {border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.12);}
+    .full {grid-column:1/-1;}
+
+    /* Country + phone code container */
+    #phoneContainer {
+      display: flex;
+      gap: 8px;
+    }
+    #countryCode {
+      width: 100px;
+      flex-shrink: 0;
+      font-size: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    #phone {
+      flex-grow: 1;
+      font-size: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 640px) {
+      .form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+      }
+      #phoneContainer {
+        flex-direction: column;
+      }
+      #countryCode, #phone {
+        width: 100%;
+      }
+      .btn {
+        min-height: 52px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== FORM ===== -->
+  <section class="section" id="invitation" aria-labelledby="invitation-title" style="background:#fff">
+    <div class="wrap">
+      <div class="invite">
+        <div class="head">
+          <div class="crest" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m3 7 5 5 4-8 4 8 5-5v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 id="invitation-title">Begin Your Tailor-Made Journey</h3>
+            <div class="subt">We reply within 24 hours with a custom plan and clear inclusions.</div>
+          </div>
+        </div>
+
+        <div class="inv-grid">
+          <div class="inv-card form-card">
+            <form class="form" id="invForm" action="https://formspree.io/f/ABCDefgh" method="POST" novalidate>
+              <div class="field full">
+                <input id="name" name="name" required placeholder=" " autocomplete="name"/>
+                <span class="label">Full name *</span>
+                <div class="error" id="err-name">Please enter your name.</div>
+              </div>
+
+              <div class="field">
+                <input id="email" type="email" name="_replyto" required placeholder=" " autocomplete="email"/>
+                <span class="label">Email *</span>
+                <div class="error" id="err-email">Please enter a valid email.</div>
+              </div>
+
+              <div class="field" id="phoneContainer">
+                <select id="countryCode" name="countryCode" required>
+                  <option value="">Code *</option>
+                  <option value="+91">+91 India</option>
+                  <option value="+1">+1 USA/Canada</option>
+                  <option value="+44">+44 UK</option>
+                  <option value="+61">+61 Australia</option>
+                  <option value="+81">+81 Japan</option>
+                  <option value="+49">+49 Germany</option>
+                  <option value="+33">+33 France</option>
+                  <option value="+86">+86 China</option>
+                  <option value="+7">+7 Russia</option>
+                   <option value="other">other</option>
+                  <!-- Add more country codes as needed -->
+                </select>
+                <input id="phone" name="phone" required placeholder="Phone number" inputmode="tel" pattern="^[0-9]{7,}$"/>
+                <span class="label">Phone *</span>
+                <div class="error" id="err-phone">Please enter your phone number.</div>
+              </div>
+
+              <div class="field">
+                <select id="country" name="country" required>
+                  <option value="">Select Country *</option>
+                  <option value="IN">India</option>
+                  <option value="US">United States</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="JP">Japan</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="CN">China</option>
+                  <option value="RU">Russia</option>
+                  <option value="OT">other</option>
+                  <!-- Add more countries as needed -->
+                </select>
+                <span class="label">Country *</span>
+                <div class="error" id="err-country">Please select your country.</div>
+              </div>
+
+              <div class="field">
+                <input id="dates" name="dates" placeholder=" " />
+                <span class="label">Preferred dates</span>
+              </div>
+
+              <div class="field">
+                <input id="party" name="party" type="number" min="1" placeholder=" " />
+                <span class="label">Travellers</span>
+              </div>
+
+              <div class="field full">
+                <select id="lengthSelect" name="plan">
+                  <option value="3N/4D" selected>3 Nights / 4 Days</option>
+                  <option value="5N/6D">5 Nights / 6 Days</option>
+                  <option value="7N/8D">7 Nights / 8 Days</option>
+                  <option value="Custom">Custom</option>
+                </select>
+                <span class="label">Trip length</span>
+              </div>
+
+              <div class="full pref-row" aria-label="Trip style">
+                <label class="pill"><input type="checkbox" name="style" value="Wildlife"> Wildlife</label>
+                <label class="pill"><input type="checkbox" name="style" value="Photography"> Photography</label>
+                <label class="pill"><input type="checkbox" name="style" value="Heritage"> Heritage</label>
+                <label class="pill"><input type="checkbox" name="style" value="Wellness"> Wellness</label>
+              </div>
+
+              <div class="field full">
+                <textarea id="notes" name="notes" placeholder=" "></textarea>
+                <span class="label">Notes & add-ons (Siddi Dhammal, Yoga, Somnath/Dwarka, Velavadar, LRK, Kutch, SOU)</span>
+              </div>
+
+              <div class="full" style="display:flex;gap:12px;align-items:center;margin-top:2px">
+                <input type="checkbox" id="consent" name="consent" value="yes" required />
+                <label for="consent">I consent to The Gir Travel Company contacting me about this request.</label>
+              </div>
+
+              <!-- Honeypot -->
+              <input type="text" name="website" autocomplete="off" style="display:none" aria-hidden="true" tabindex="-1">
+
+              <!-- Helpful meta -->
+              <input type="hidden" name="_subject" value="New Enquiry — The Gir Travel Company">
+              <input type="hidden" name="submitted_at" id="submittedAt" value="">
+
+              <div class="actions-form">
+                <button class="btn btn--royal" type="submit">Accept Your Invitation</button>
+                <button class="btn btn--royal" id="whatsappBook" type="button">Book via WhatsApp</button>
+                <a class="btn btn--ghost" href="mailto:info@thegir.in">Email instead</a>
+              </div>
+
+              <!-- Live summary chips -->
+              <div class="full">
+                <div class="summary" id="summary">
+                  <span class="chip" id="sum-plan">Plan: 3N / 4D</span>
+                  <span class="chip" id="sum-dates">Dates: —</span>
+                  <span class="chip" id="sum-party">Travellers: —</span>
+                  <span class="chip" id="sum-style">Style: —</span>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Info card omitted for brevity (unchanged) -->
+        </div>
+      </div>
+
+      <div class="divider" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Include footer, scripts, JSON-LD and other content as before -->
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    // ====== Summary chips live sync ======
+    const lengthSelect = document.getElementById('lengthSelect');
+    const planRadios = document.querySelectorAll('input[name="planRadio"]');
+    const dates = document.getElementById('dates');
+    const party = document.getElementById('party');
+    const styleBoxes = document.querySelectorAll('input[name="style"]');
+    const sumPlan = document.getElementById('sum-plan');
+    const sumDates = document.getElementById('sum-dates');
+    const sumParty = document.getElementById('sum-party');
+    const sumStyle = document.getElementById('sum-style');
+
+    function updatePlanChip(v) { if (sumPlan) sumPlan.textContent = 'Plan: ' + v; }
+    planRadios.forEach(r => r.addEventListener('change', () => {
+      const checked = document.querySelector('input[name="planRadio"]:checked');
+      if (lengthSelect && checked) lengthSelect.value = checked.value;
+      updatePlanChip(checked ? checked.value : '');
+    }));
+    if (lengthSelect) lengthSelect.addEventListener('change', () => {
+      const val = lengthSelect.value;
+      const radio = [...planRadios].find(r => r.value === val); if (radio) radio.checked = true;
+      updatePlanChip(val);
+    });
+    if (dates) dates.addEventListener('input', () => { if (sumDates) sumDates.textContent = 'Dates: ' + (dates.value || '—'); });
+    if (party) party.addEventListener('input', () => { if (sumParty) sumParty.textContent = 'Travellers: ' + (party.value || '—'); });
+    styleBoxes.forEach(cb => cb.addEventListener('change', () => {
+      const vals = [...styleBoxes].filter(x => x.checked).map(x => x.value);
+      if (sumStyle) sumStyle.textContent = 'Style: ' + (vals.join(', ') || '—');
+    }));
+
+    // ====== Formspree validation + submit ======
+    const form = document.getElementById('invForm');
+    document.getElementById('submittedAt').value = new Date().toISOString();
+
+    function markInvalid(id, cond) {
+      const field = document.getElementById(id)?.closest('.field');
+      const err = document.getElementById('err-' + id);
+      if (!field) return true;
+      if (cond) { field.classList.remove('invalid'); if (err) err.style.display = 'none'; return true; }
+      field.classList.add('invalid'); if (err) err.style.display = 'block'; return false;
+    }
+
+    function validateForm() {
+      let ok = true;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const countryCode = document.getElementById('countryCode').value.trim();
+      const country = document.getElementById('country').value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const phoneOk = /^[0-9]{7,}$/.test(phone);
+      if (!markInvalid('name', name.length > 1)) ok = false;
+      if (!markInvalid('email', emailOk)) ok = false;
+      if (!(countryCode.length > 0)) { alert("Please select your country code."); ok = false; }
+      if (!markInvalid('phone', phoneOk)) ok = false;
+      if (!markInvalid('country', country.length > 0)) ok = false;
+      const consent = document.getElementById('consent').checked;
+      if (!consent) { alert('Please provide consent to be contacted.'); ok = false; }
+      if (form.website && form.website.value) ok = false; // honeypot
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          alert('Thank you! We will contact you within 24 hours.\nTip: You can also WhatsApp us now.');
+          form.reset();
+          updatePlanChip(lengthSelect ? lengthSelect.value : '3N/4D');
+          if (sumDates) sumDates.textContent = 'Dates: —';
+          if (sumParty) sumParty.textContent = 'Travellers: —';
+          if (sumStyle) sumStyle.textContent = 'Style: —';
+        } else {
+          console.error(await res.json().catch(() => ({})));
+          alert('Sorry, something went wrong. Please email info@thegir.in or WhatsApp us.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Network error. Please email info@thegir.in or WhatsApp us.');
+      }
+    });
+
+    // ===== WhatsApp Booking Integration =====
+    document.getElementById('whatsappBook').addEventListener('click', function () {
+      // Collect form values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const countryCode = document.getElementById('countryCode').value.trim();
+      const country = document.getElementById('country').value.trim();
+      const dates = document.getElementById('dates').value.trim();
+      const party = document.getElementById('party').value.trim();
+      const plan = document.getElementById('lengthSelect').value;
+      const styles = Array.from(document.querySelectorAll('input[name="style"]:checked')).map(x => x.value).join(', ');
+      const notes = document.getElementById('notes').value.trim();
+
+      // Validate main required fields before opening
+      if (name.length < 2) {
+        alert('Please enter your name before booking via WhatsApp.');
+        return;
+      }
+      if (countryCode.length === 0) {
+        alert('Please select your country code before booking via WhatsApp.');
+        return;
+      }
+      if (phone.length < 7) {
+        alert('Please enter your phone number before booking via WhatsApp.');
+        return;
+      }
+      if (country.length === 0) {
+        alert('Please select your country before booking via WhatsApp.');
+        return;
+      }
+
+      // Create message template
+      let message =
+        `Hi, I'd like to plan a journey!\n\n` +
+        `Name: ${name}\nEmail: ${email || 'N/A'}\nPhone: ${countryCode} ${phone}\nCountry: ${country}\nDates: ${dates || 'N/A'}\nTravellers: ${party || 'N/A'}\nPlan: ${plan}\nStyle: ${styles || 'N/A'}\nNotes: ${notes || 'N/A'}\n\n` +
+        `Sent via The Gir Travel Company website.`;
+
+      // WhatsApp business number (India example)
+      const waNumber = '917624092647'; // without + sign, no spaces
+
+      // Encode and redirect to WhatsApp
+      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    });
+  </script>
+</body>
+</html>
